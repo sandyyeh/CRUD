@@ -1,0 +1,40 @@
+﻿@model IEnumerable<WebApplication2.Models.Class>
+
+@*@{
+    Html.RenderAction("Edit", "Class");
+}*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>課號</th>
+            <th>課名</th>
+            <th>學分數</th>
+            <th>講師</th>
+            <th>上課地點</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ClassID</td>
+                <td>@item.ClassName</td>
+                <td>@item.Credit</td>
+                <td>@item.Teacher</td>
+                <td>@item.Location</td>
+                <td>
+                    <button onclick="clickLink('@Url.Action("Delete", "Class", new{ classId=item.ClassID})')">刪除</button>
+                    <button onclick="clickLink('@Url.Action("Edit", "Class", new{ classId=item.ClassID})')">編輯</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).on('click', '#BtnSend', function () {
+        alert('clicked!');
+    });
+</script>

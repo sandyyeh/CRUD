@@ -1,0 +1,36 @@
+﻿@model IEnumerable<WebApplication2.Models.Student>
+
+@*<p></p>
+<p>學號 <input type="text" value="aaa" /></p>
+<p>生日 <input type="text" value="aaa" /></p>
+<p>姓名 <input type="text" value="aaa" /></p>
+<p>Email <input type="text" value="aaa" /></p>
+<p><button>新增</button></p>*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>學號</th>
+            <th>姓名</th>
+            <th>生日</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.StudentID</td>
+                <td>@item.Name</td>
+                <td>@Convert.ToDateTime(item.Birthday).ToString("yyyy-MM-dd")</td>
+                <td>@item.Email</td>
+                <td>
+                    <button>刪除</button> <button>編輯</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+
+</table>
+
