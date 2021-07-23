@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using WebApplication2.Models;
 using WebApplication2.Service;
@@ -12,17 +9,20 @@ namespace WebApplication2.Controllers
     {
         // GET: Class
         DBService dbService = new DBService();
-        public ActionResult Index()
+        public ActionResult Index(string classId)
         {
             List<Class> classList = dbService.GetClassList();
-            return View(classList);
+            Class classDetail = dbService.GetClass(classId);
+
+            ClassViewModel viewModel = new ClassViewModel()
+            {
+                ClassList = classList,
+                ClassDetail = classDetail
+            };
+
+            return View(viewModel);
         }
 
-        //// GET: Class/Details/5
-        //public ActionResult Details(int id)
-        //{
-        //    return View();
-        //}
 
         //GET: Class/Create
         public ActionResult Create()
@@ -32,12 +32,11 @@ namespace WebApplication2.Controllers
 
         // POST: Class/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Class model)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                dbService.CreateClass(model);
                 return RedirectToAction("Index");
             }
             catch
@@ -47,49 +46,40 @@ namespace WebApplication2.Controllers
         }
 
         // GET: Class/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(string classId)
         {
-            Class classDetail = dbService.GetClass(id);
-            return View(classDetail);
+            return RedirectToAction("Index", "Class", new { classId = classId });
         }
 
-        // POST: Class/Edit/5
+        // POST: Class/Update/5
         [HttpPost]
-        public ActionResult Edit(Class model)
+        public ActionResult Update(Class model)
         {
             try
             {
-
-                // TODO: Add update logic here
-
+                dbService.UpdateClass(model);
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index");
             }
         }
+
 
         // GET: Class/Delete/5
-        public ActionResult Delete(string id)
-        {
-            return View();
-        }
-
-        // POST: Class/Delete/5
-        [HttpPost]
-        public ActionResult Delete(string id, FormCollection collection)
+        public ActionResult Delete(string classId)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                dbService.DeleteClass(classId);
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index");
             }
         }
+
     }
 }

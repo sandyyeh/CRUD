@@ -10,7 +10,7 @@
             <PropertyRef Name="ClassID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ClassID" Type="varchar" MaxLength="7" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="ClassID" Type="varchar" MaxLength="7" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClassName" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Credit" Type="int" Nullable="false" />
           <Property Name="Location" Type="varchar" MaxLength="20" Nullable="false" />
@@ -21,7 +21,7 @@
             <PropertyRef Name="StudentID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StudentID" Type="varchar" MaxLength="9" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="StudentID" Type="varchar" MaxLength="9" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="20" />
           <Property Name="Birthday" Type="date" />
           <Property Name="Email" Type="varchar" MaxLength="50" />

@@ -1,8 +1,15 @@
-﻿@model IEnumerable<WebApplication2.Models.Class>
+﻿
+@model WebApplication2.Models.ClassViewModel
+<p></p>
+@if (Model.ClassDetail != null)
+{
+    Html.RenderPartial("Edit", Model.ClassDetail);
+}
+else
+{
+    Html.RenderAction("Create", "Class");
+}
 
-@*@{
-    Html.RenderAction("Edit", "Class");
-}*@
 <table class="table">
     <thead>
         <tr>
@@ -15,7 +22,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.ClassList)
         {
             <tr>
                 <td>@item.ClassID</td>
@@ -24,17 +31,11 @@
                 <td>@item.Teacher</td>
                 <td>@item.Location</td>
                 <td>
-                    <button onclick="clickLink('@Url.Action("Delete", "Class", new{ classId=item.ClassID})')">刪除</button>
-                    <button onclick="clickLink('@Url.Action("Edit", "Class", new{ classId=item.ClassID})')">編輯</button>
+                    <input id="btnDelete" onclick="location.href='@Url.Action("Delete", "Class", new { classId = item.ClassID })'" type="button" value="刪除" />
+                    <input id="btnEdit" onclick="location.href='@Url.Action("Edit", "Class", new { classId = item.ClassID })'" type="button" value="編輯" />
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script type="text/javascript">
-    $(document).on('click', '#BtnSend', function () {
-        alert('clicked!');
-    });
-</script>

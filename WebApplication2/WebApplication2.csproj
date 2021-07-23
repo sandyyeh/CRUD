@@ -139,6 +139,7 @@
     <Compile Include="Models\Class.cs">
       <DependentUpon>TestModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ClassViewModel.cs" />
     <Compile Include="Models\CourseSelectionModel.cs" />
     <Compile Include="Models\Student.cs">
       <DependentUpon>TestModel.tt</DependentUpon>
@@ -219,6 +220,7 @@
     <Content Include="Views\CourseSelection\Index.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Class\Index.cshtml" />
+    <Content Include="Views\Class\Create.cshtml" />
     <Content Include="Views\Class\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>

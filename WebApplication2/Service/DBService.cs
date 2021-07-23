@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using WebApplication2.Models;
@@ -25,6 +27,42 @@ namespace WebApplication2.Service
         {
             Class result = this.GetClassList().Where(o => o.ClassID == classId).FirstOrDefault();
             return result;
+        }
+
+        public void CreateClass(Class param)
+        {
+            Class classDetail = new Class()
+            {
+                ClassName = param.ClassName,
+                Credit = param.Credit,
+                Teacher = param.Teacher,
+                Location = param.Location
+            };
+
+            db.Class.Add(classDetail);
+            db.SaveChanges();
+        }
+
+        public void UpdateClass(Class param)
+        {
+            Class classDetail = new Class();
+            classDetail = db.Class.Find(param.ClassID);
+            classDetail.ClassName = param.ClassName;
+            classDetail.Credit = param.Credit;
+            classDetail.Teacher = param.Teacher;
+            classDetail.Location = param.Location;
+
+            db.Entry(classDetail).State = EntityState.Modified;
+            db.SaveChanges();
+        }
+
+        public void DeleteClass(string classId)
+        {
+            Class classDetail = new Class();
+            classDetail = db.Class.Find(classId);
+
+            db.Entry(classDetail).State = EntityState.Deleted;
+            db.SaveChanges();
         }
 
         public CourseSelectionModel GetStudentsAndClasses(string studentId)
