@@ -29,8 +29,8 @@ else
                 <td>@item.Email</td>
                 <td>
                 <td>
-                    <input id="btnDelete" onclick="location.href='@Url.Action("Delete", "Student", new { studentId = item.StudentID })'" type="button" value="刪除" />
-                    <input id="btnEdit" onclick="location.href='@Url.Action("Edit", "Student", new { studentId = item.StudentID })'" type="button" value="編輯" />
+                    <input id="btnDelete" onclick="location.href='@Url.Action("Delete", "Student", new { id = item.StudentID })'" type="button" value="刪除" />
+                    <input id="btnEdit" onclick="location.href='@Url.Action("Edit", "Student", new { id = item.StudentID })'" type="button" value="編輯" />
                 </td>
             </tr>
         }

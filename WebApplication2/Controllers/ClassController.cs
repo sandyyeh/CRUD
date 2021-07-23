@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using WebApplication2.Models;
+using WebApplication2.Repository;
+using WebApplication2.Repository.Interface;
 using WebApplication2.Service;
 
 namespace WebApplication2.Controllers
@@ -8,11 +10,16 @@ namespace WebApplication2.Controllers
     public class ClassController : Controller
     {
         // GET: Class
-        DBService dbService = new DBService();
-        public ActionResult Index(string classId)
+        private IClassRepository classRep;
+        public ClassController()
         {
-            List<Class> classList = dbService.GetClassList();
-            Class classDetail = dbService.GetClass(classId);
+            classRep = new ClassRepository();
+        }
+
+        public ActionResult Index(string id)
+        {
+            List<Class> classList = classRep.GetAll();
+            Class classDetail = classRep.GetDetail(id);
 
             ClassViewModel viewModel = new ClassViewModel()
             {
@@ -32,11 +39,11 @@ namespace WebApplication2.Controllers
 
         // POST: Class/Create
         [HttpPost]
-        public ActionResult Create(Class model)
+        public ActionResult Create(Class param)
         {
             try
             {
-                dbService.CreateClass(model);
+                classRep.Create(param);
                 return RedirectToAction("Index");
             }
             catch
@@ -46,18 +53,18 @@ namespace WebApplication2.Controllers
         }
 
         // GET: Class/Edit/5
-        public ActionResult Edit(string classId)
+        public ActionResult Edit(string id)
         {
-            return RedirectToAction("Index", "Class", new { classId = classId });
+            return RedirectToAction("Index", "Class", new { id = id });
         }
 
         // POST: Class/Update/5
         [HttpPost]
-        public ActionResult Update(Class model)
+        public ActionResult Update(Class param)
         {
             try
             {
-                dbService.UpdateClass(model);
+                classRep.Update(param);
                 return RedirectToAction("Index");
             }
             catch
@@ -68,11 +75,11 @@ namespace WebApplication2.Controllers
 
 
         // GET: Class/Delete/5
-        public ActionResult Delete(string classId)
+        public ActionResult Delete(string id)
         {
             try
             {
-                dbService.DeleteClass(classId);
+                classRep.Delete(id);
                 return RedirectToAction("Index");
             }
             catch

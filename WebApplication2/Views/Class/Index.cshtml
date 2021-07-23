@@ -31,8 +31,8 @@ else
                 <td>@item.Teacher</td>
                 <td>@item.Location</td>
                 <td>
-                    <input id="btnDelete" onclick="location.href='@Url.Action("Delete", "Class", new { classId = item.ClassID })'" type="button" value="刪除" />
-                    <input id="btnEdit" onclick="location.href='@Url.Action("Edit", "Class", new { classId = item.ClassID })'" type="button" value="編輯" />
+                    <input id="btnDelete" onclick="location.href='@Url.Action("Delete", "Class", new { id = item.ClassID })'" type="button" value="刪除" />
+                    <input id="btnEdit" onclick="location.href='@Url.Action("Edit", "Class", new { id = item.ClassID })'" type="button" value="編輯" />
                 </td>
             </tr>
         }

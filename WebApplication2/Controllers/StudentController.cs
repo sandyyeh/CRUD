@@ -1,18 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using WebApplication2.Models;
+using WebApplication2.Repository;
+using WebApplication2.Repository.Interface;
 using WebApplication2.Service;
 
 namespace WebApplication2.Controllers
 {
     public class StudentController : Controller
     {
-        DBService dbService = new DBService();
-        // GET: Student
-        public ActionResult Index(string studentId)
+        private IStudentRepository studentRep;
+        public StudentController()
         {
-            List<Student> studentList = dbService.GetStudentList();
-            Student student = dbService.GetStudent(studentId);
+            studentRep = new StudentRepository();
+        }
+
+        // GET: Student
+        public ActionResult Index(string id)
+        {
+            List<Student> studentList = studentRep.GetAll();
+            Student student = studentRep.GetDetail(id);
 
             StudentViewModel viewModel = new StudentViewModel()
             {
@@ -21,7 +28,6 @@ namespace WebApplication2.Controllers
             };
 
             return View(viewModel);
-
         }
 
 
@@ -33,11 +39,11 @@ namespace WebApplication2.Controllers
 
         // POST: Student/Create
         [HttpPost]
-        public ActionResult Create(Student model)
+        public ActionResult Create(Student param)
         {
             try
             {
-                dbService.CreateStudent(model);
+                studentRep.Create(param);
                 return RedirectToAction("Index");
             }
             catch
@@ -47,18 +53,18 @@ namespace WebApplication2.Controllers
         }
 
         // GET: Student/Edit/5
-        public ActionResult Edit(string studentId)
+        public ActionResult Edit(string id)
         {
-            return RedirectToAction("Index", "Student", new { studentId = studentId });
+            return RedirectToAction("Index", "Student", new { id = id });
         }
 
         // POST: Student/Edit/5
         [HttpPost]
-        public ActionResult Update(Student model)
+        public ActionResult Update(Student param)
         {
             try
             {
-                dbService.UpdateStudent(model);
+                studentRep.Update(param);
                 return RedirectToAction("Index");
             }
             catch
@@ -68,11 +74,11 @@ namespace WebApplication2.Controllers
         }
 
         // GET: Student/Delete/5
-        public ActionResult Delete(string studentId)
+        public ActionResult Delete(string id)
         {
             try
             {
-                dbService.DeleteStudent(studentId);
+                studentRep.Delete(id);
                 return RedirectToAction("Index");
             }
             catch

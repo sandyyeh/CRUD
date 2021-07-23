@@ -22,8 +22,9 @@ namespace WebApplication2.Controllers
 
         public ActionResult Student()
         {
-            List<Student> studentList = dbService.GetStudentList();
-            return View(studentList);
+            //List<Student> studentList = dbService.GetStudentList();
+            //return View(studentList);
+            return View();
         }
 
         public ActionResult Class()
