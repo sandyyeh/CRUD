@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using WebApplication2.Models;
 using WebApplication2.Service;
@@ -12,33 +9,35 @@ namespace WebApplication2.Controllers
     {
         DBService dbService = new DBService();
         // GET: Student
-        public ActionResult Index()
+        public ActionResult Index(string studentId)
         {
             List<Student> studentList = dbService.GetStudentList();
-            return View(studentList);
-        
+            Student student = dbService.GetStudent(studentId);
+
+            StudentViewModel viewModel = new StudentViewModel()
+            {
+                StudentList = studentList,
+                Student = student
+            };
+
+            return View(viewModel);
+
         }
 
-        // GET: Student/Details/5
-        public ActionResult Details(int id)
+
+        // GET: Student/Create
+        public ActionResult Create()
         {
             return View();
         }
 
-        //// GET: Student/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
-
         // POST: Student/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Student model)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                dbService.CreateStudent(model);
                 return RedirectToAction("Index");
             }
             catch
@@ -48,46 +47,37 @@ namespace WebApplication2.Controllers
         }
 
         // GET: Student/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string studentId)
         {
-            return View();
+            return RedirectToAction("Index", "Student", new { studentId = studentId });
         }
 
         // POST: Student/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Update(Student model)
         {
             try
             {
-                // TODO: Add update logic here
-
+                dbService.UpdateStudent(model);
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index");
             }
         }
 
         // GET: Student/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Student/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string studentId)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                dbService.DeleteStudent(studentId);
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index");
             }
         }
     }

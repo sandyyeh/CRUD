@@ -1,11 +1,14 @@
-﻿@model IEnumerable<WebApplication2.Models.Student>
+﻿@model WebApplication2.Models.StudentViewModel
 
-@*<p></p>
-<p>學號 <input type="text" value="aaa" /></p>
-<p>生日 <input type="text" value="aaa" /></p>
-<p>姓名 <input type="text" value="aaa" /></p>
-<p>Email <input type="text" value="aaa" /></p>
-<p><button>新增</button></p>*@
+<p></p>
+@if (Model.Student != null)
+{
+    Html.RenderPartial("Edit", Model.Student);
+}
+else
+{
+    Html.RenderAction("Create", "Student");
+}
 <table class="table">
     <thead>
         <tr>
@@ -17,7 +20,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.StudentList)
         {
             <tr>
                 <td>@item.StudentID</td>
@@ -25,12 +28,15 @@
                 <td>@Convert.ToDateTime(item.Birthday).ToString("yyyy-MM-dd")</td>
                 <td>@item.Email</td>
                 <td>
-                    <button>刪除</button> <button>編輯</button>
+                <td>
+                    <input id="btnDelete" onclick="location.href='@Url.Action("Delete", "Student", new { studentId = item.StudentID })'" type="button" value="刪除" />
+                    <input id="btnEdit" onclick="location.href='@Url.Action("Edit", "Student", new { studentId = item.StudentID })'" type="button" value="編輯" />
                 </td>
             </tr>
         }
     </tbody>
-
-
 </table>
+
+
+
 

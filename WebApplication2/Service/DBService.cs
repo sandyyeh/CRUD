@@ -18,6 +18,45 @@ namespace WebApplication2.Service
             return result.ToList();
         }
 
+        public Student GetStudent(string id)
+        {
+            Student result = this.GetStudentList().Where(o => o.StudentID == id).FirstOrDefault();
+            return result;
+        }
+        public void CreateStudent(Student param)
+        {
+            Student student = new Student()
+            {
+                Name = param.Name,
+                Birthday = param.Birthday,
+                Email = param.Email
+            };
+
+            db.Student.Add(student);
+            db.SaveChanges();
+        }
+
+        public void UpdateStudent(Student param)
+        {
+            Student student = new Student();
+            student = db.Student.Find(param.StudentID);
+            student.Name = param.Name;
+            student.Birthday = param.Birthday;
+            student.Email = param.Email;
+
+            db.Entry(student).State = EntityState.Modified;
+            db.SaveChanges();
+        }
+
+        public void DeleteStudent(string id)
+        {
+            Student student = new Student();
+            student = db.Student.Find(id);
+
+            db.Entry(student).State = EntityState.Deleted;
+            db.SaveChanges();
+        }
+
         public List<Class> GetClassList()
         {
             IQueryable<Class> result = db.Class;
