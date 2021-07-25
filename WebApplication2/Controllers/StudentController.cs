@@ -47,7 +47,7 @@ namespace WebApplication2.Controllers
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index");
             }
         }
 
