@@ -1,35 +1,35 @@
-﻿@model IEnumerable<WebApplication2.Models.Student>
+﻿@model WebApplication2.Models.CourseSelectionViewModel
 
-<p></p>
-<p>學號 <input type="text" value="aaa" /></p>
-<p>生日 <input type="text" value="aaa" /></p>
-<p>姓名 <input type="text" value="aaa" /></p>
-<p>Email <input type="text" value="aaa" /></p>
-<p><button>新增</button></p>
+<h2>選課編輯</h2>
+@if (String.IsNullOrEmpty(Model.StudentId))
+{
+    Html.RenderAction("Create", Model.CreateViewModel);
+
+}
+else
+{
+    Html.RenderPartial("Edit", Model.EditViewModel);
+}
+
 <table class="table">
     <thead>
         <tr>
             <th>學號</th>
-            <th>姓名</th>
-            <th>生日</th>
-            <th>Email</th>
+            <th>課程</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Student_ClassList)
         {
             <tr>
-                <td>@item.StudentID</td>
-                <td>@item.Name</td>
-                <td>@Convert.ToDateTime(item.Birthday).ToString("yyyy-MM-dd")</td>
-                <td>@item.Email</td>
+                <td>@item.StudentId</td>
+                <td>@item.ClassName</td>
                 <td>
-                    <button>刪除</button> <button>編輯</button>
+                    <input id="btnDelete" onclick="location.href='@Url.Action("Delete", "CourseSelection", new { id = item.StudentId })'" type="button" value="刪除" />
+                    <input id="btnEdit" onclick="location.href='@Url.Action("Edit", "CourseSelection", new { id = item.StudentId })'" type="button" value="編輯" />
                 </td>
             </tr>
         }
     </tbody>
-
-
 </table>

@@ -3,7 +3,6 @@ using System.Web.Mvc;
 using WebApplication2.Models;
 using WebApplication2.Repository;
 using WebApplication2.Repository.Interface;
-using WebApplication2.Service;
 
 namespace WebApplication2.Controllers
 {

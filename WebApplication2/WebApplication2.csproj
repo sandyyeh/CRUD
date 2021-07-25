@@ -141,6 +141,7 @@
     </Compile>
     <Compile Include="Models\ClassViewModel.cs" />
     <Compile Include="Models\CourseSelectionModel.cs" />
+    <Compile Include="Models\CourseSelectionViewModel.cs" />
     <Compile Include="Models\Student.cs">
       <DependentUpon>TestModel.tt</DependentUpon>
     </Compile>
@@ -165,8 +166,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ClassRepository.cs" />
+    <Compile Include="Repository\CourseSelectionRepository.cs" />
+    <Compile Include="Repository\Interface\ICourseSelectionRepository.cs" />
     <Compile Include="Repository\StudentRepository.cs" />
-    <Compile Include="Service\DBService.cs" />
     <Compile Include="Repository\Interface\IClassRepository.cs" />
     <Compile Include="Repository\Interface\IStudentRepository.cs" />
   </ItemGroup>
@@ -220,18 +222,19 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\CourseSelection\Student.cshtml" />
-    <Content Include="Views\CourseSelection\Class.cshtml" />
-    <Content Include="Views\CourseSelection\Index.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Class\Index.cshtml" />
     <Content Include="Views\Class\Create.cshtml" />
     <Content Include="Views\Class\Edit.cshtml" />
     <Content Include="Views\Student\Create.cshtml" />
     <Content Include="Views\Student\Edit.cshtml" />
+    <Content Include="Views\CourseSelection\Edit.cshtml" />
+    <Content Include="Views\CourseSelection\Create.cshtml" />
+    <Content Include="Views\CourseSelection\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Service\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
