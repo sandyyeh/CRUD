@@ -1,24 +1,26 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using WebApplication2.Models;
-using WebApplication2.Repository;
-using WebApplication2.Repository.Interface;
+using WebApplication2.Service;
 
 namespace WebApplication2.Controllers
 {
     public class StudentController : Controller
     {
-        private IStudentRepository studentRep;
+
+        private readonly StudentService _studentService;
+        private readonly CourseSelectionService _courseService;
         public StudentController()
         {
-            studentRep = new StudentRepository();
+            _studentService = new StudentService();
+            _courseService = new CourseSelectionService();
         }
 
         // GET: Student
         public ActionResult Index(string id)
         {
-            List<Student> studentList = studentRep.GetAll();
-            Student student = studentRep.GetDetail(id);
+            List<Student> studentList = _studentService.GetAll();
+            Student student = _studentService.GetDetail(id);
 
             StudentViewModel viewModel = new StudentViewModel()
             {
@@ -42,7 +44,7 @@ namespace WebApplication2.Controllers
         {
             try
             {
-                studentRep.Create(param);
+                _studentService.Create(param);
                 return RedirectToAction("Index");
             }
             catch
@@ -63,7 +65,7 @@ namespace WebApplication2.Controllers
         {
             try
             {
-                studentRep.Update(param);
+                _studentService.Update(param);
                 return RedirectToAction("Index");
             }
             catch
@@ -77,7 +79,8 @@ namespace WebApplication2.Controllers
         {
             try
             {
-                studentRep.Delete(id);
+                _studentService.Delete(id);
+                _courseService.Delete(id);
                 return RedirectToAction("Index");
             }
             catch

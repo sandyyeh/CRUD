@@ -171,6 +171,12 @@
     <Compile Include="Repository\StudentRepository.cs" />
     <Compile Include="Repository\Interface\IClassRepository.cs" />
     <Compile Include="Repository\Interface\IStudentRepository.cs" />
+    <Compile Include="Service\ClassService.cs" />
+    <Compile Include="Service\CourseSelectionService.cs" />
+    <Compile Include="Service\Interface\IClassService.cs" />
+    <Compile Include="Service\Interface\ICourseSelectionService.cs" />
+    <Compile Include="Service\Interface\IStudentService.cs" />
+    <Compile Include="Service\StudentService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -234,7 +240,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Service\" />
     <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using WebApplication2.Models;
 
-namespace WebApplication2.Repository.Interface
+namespace WebApplication2.Service.Interface
 {
-    interface ICourseSelectionRepository
+    public interface ICourseSelectionService
     {
         List<Student_Class> GetAll();
         Student_Class GetDetail(string id);
@@ -21,6 +21,5 @@ namespace WebApplication2.Repository.Interface
         List<SelectListItem> GetStudentListItems();
         String GetClassName(string id);
         void UpdateCourse(string classId);
-        //List<Student_Class> GetListNeedToUpdate(string classId);
     }
 }

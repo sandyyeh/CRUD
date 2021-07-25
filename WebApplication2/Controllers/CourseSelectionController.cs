@@ -1,40 +1,35 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using WebApplication2.Models;
-using WebApplication2.Repository;
-using WebApplication2.Repository.Interface;
+using WebApplication2.Service;
 
 namespace WebApplication2.Controllers
 {
     public class CourseSelectionController : Controller
     {
-        private IStudentRepository studentRep;
-        private IClassRepository classRep;
-        private ICourseSelectionRepository courseSelectionRep;
+        private readonly CourseSelectionService _courseService;
         public CourseSelectionController()
         {
-            studentRep = new StudentRepository();
-            classRep = new ClassRepository();
-            courseSelectionRep = new CourseSelectionRepository();
+            _courseService = new CourseSelectionService();
         }
 
         public ActionResult Index(string id)
         {
             EditViewModel editViewModel = new EditViewModel();
-            List<Student_Class> list = courseSelectionRep.GetAll();
+            List<Student_Class> list = _courseService.GetAll();
             List<Student_ClassViewModel> result = new List<Student_ClassViewModel>();
             if (!string.IsNullOrEmpty(id))
             {
-                editViewModel.Detail = courseSelectionRep.GetDetail(id);
-                editViewModel.StudentListItems = courseSelectionRep.GetStudentListItems(id);
-                editViewModel.ClassListItems = courseSelectionRep.GetClassCheckboxes(id);
+                editViewModel.Detail = _courseService.GetDetail(id);
+                editViewModel.StudentListItems = _courseService.GetStudentListItems(id);
+                editViewModel.ClassListItems = _courseService.GetClassCheckboxes(id);
             }
             foreach (var item in list)
             {
                 result.Add(new Student_ClassViewModel()
                 {
                     StudentId = item.StudentID,
-                    ClassName = courseSelectionRep.GetClassName(item.StudentID)
+                    ClassName = _courseService.GetClassName(item.StudentID)
                 });
             }
 
@@ -51,8 +46,8 @@ namespace WebApplication2.Controllers
         {
             CreateViewModel model = new CreateViewModel()
             {
-                StudentListItems = courseSelectionRep.GetStudentListItems(),
-                ClassListItems = courseSelectionRep.GetClassCheckboxes(null)
+                StudentListItems = _courseService.GetStudentListItems(),
+                ClassListItems = _courseService.GetClassCheckboxes(null)
 
             };
             return View(model);
@@ -64,7 +59,7 @@ namespace WebApplication2.Controllers
         {
             try
             {
-                courseSelectionRep.Create(id, selectedClasses);
+                _courseService.Create(id, selectedClasses);
                 return RedirectToAction("Index");
             }
             catch
@@ -84,7 +79,7 @@ namespace WebApplication2.Controllers
         {
             try
             {
-                courseSelectionRep.Update(id, selectedClasses);
+                _courseService.Update(id, selectedClasses);
                 return RedirectToAction("Index");
             }
             catch
@@ -96,7 +91,7 @@ namespace WebApplication2.Controllers
         {
             try
             {
-                courseSelectionRep.Delete(id);
+                _courseService.Delete(id);
                 return RedirectToAction("Index");
             }
             catch

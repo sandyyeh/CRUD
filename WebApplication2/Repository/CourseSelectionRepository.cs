@@ -52,6 +52,29 @@ namespace WebApplication2.Repository
             return result;
         }
 
+        public void UpdateCourse(string classId)
+        {
+            var listNeedToUpdate = GetAll().Where(oh => oh.ClassID.Contains(classId)).ToList();
+            if (listNeedToUpdate.Count > 0)
+            {
+                foreach (var item in listNeedToUpdate)
+                {
+                    Student_Class data = GetDetail(item.StudentID);
+                    string[] classArray = data.ClassID.Split(',').ToArray();
+                    classArray = classArray.Where(val => val != classId).ToArray();
+                    data.ClassID = string.Join(",", classArray) + ",";
+
+                    db.Entry(data).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        public List<Student_Class> GetListNeedToUpdate(string classId)
+        {
+            return GetAll().Where(oh => oh.ClassID.Contains(classId)).ToList();
+        }
+
         public void Update(string id, string[] selectedClasses)
         {
             Student_Class data = new Student_Class();
